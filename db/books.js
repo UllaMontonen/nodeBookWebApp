@@ -59,6 +59,15 @@ const deleteBook = (req, res) => {
     res.status(204).end();
 }
 
+// Delete all books (for tests)
+const deleteAllBooks = () => {
+    db.query('DELETE FROM books', (err, res) => {
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }
+    })
+}
+
 // Edit book by id
 const updateBook = (req, res) => {
     const editedBook = req.body;
@@ -81,5 +90,6 @@ module.exports = {
     getBookById: getBookById,
     addBook: addBook,
     deleteBook: deleteBook,
-    updateBook: updateBook
+    updateBook: updateBook,
+    deleteAllBooks: deleteAllBooks
 }
