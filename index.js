@@ -1,6 +1,7 @@
 const express = require('express');
 
 const app = express();
+app.use(express.json());
 
 const port = 3000;
 
@@ -10,12 +11,12 @@ let books = [
     { id: '3', name: 'Kirjan nimi', author: 'Kirjailija', year: 2000 }
 ];
 
-// Hae kaikki kirjat
+// Get all books
 app.get("/api/books", (req, res) => {
     res.json(books);
 })
 
-// Hae tietty kirja
+// Get a certain book
 app.get("/api/books/:id", (req, res) => {
     const bookId = req.params.id;
     const book = books.filter(book => book.id === bookId);
@@ -25,6 +26,13 @@ app.get("/api/books/:id", (req, res) => {
         res.status(404).end();
 })
 
+// Add a new book
+app.post("/api/books", (req, res) => {
+    const newBook = {'id': Date.now().toString(), ...req.body};
+    books = [...books, newBook];
+
+    res.json(newBook);
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
