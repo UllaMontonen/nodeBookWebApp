@@ -34,6 +34,14 @@ app.post("/api/books", (req, res) => {
     res.json(newBook);
 });
 
+// Delete a book
+app.delete("/api/books/:id", (req, res) => {
+    const id = req.params.id;
+
+    books = books.filter(book => book.id !== id);
+    res.status(204).end();
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
 });
