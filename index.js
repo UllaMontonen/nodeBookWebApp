@@ -1,57 +1,16 @@
 const express = require('express');
+const query = require('./db/books');
 
 const app = express();
 app.use(express.json());
 
 const port = 3000;
 
-let books = [
-    { id: '1', name: 'Harry Potter ja Feeniksin kilta', author: 'J.K. Rowling', year: 2018 },
-    { id: '2', name: 'Sinuhe egyptiläinen', author: 'Mika Waltari', year: 2020 },
-    { id: '3', name: 'Kirjan nimi', author: 'Kirjailija', year: 2000 }
-];
-
-// Get all books
-app.get("/api/books", (req, res) => {
-    res.json(books);
-})
-
-// Get a certain book
-app.get("/api/books/:id", (req, res) => {
-    const bookId = req.params.id;
-    const book = books.filter(book => book.id === bookId);
-    if (book.length > 0)
-        res.json(book);
-    else
-        res.status(404).end();
-})
-
-// Add a new book
-app.post("/api/books", (req, res) => {
-    const newBook = {'id': Date.now().toString(), ...req.body};
-    books = [...books, newBook];
-
-    res.json(newBook);
-});
-
-// Delete a book
-app.delete("/api/books/:id", (req, res) => {
-    const id = req.params.id;
-
-    books = books.filter(book => book.id !== id);
-    res.status(204).end();
-})
-
-// Edit a book
-app.put("/api/books/:id", (req, res) => {
-    const id = req.params.id;
-    const updatedBook = {'id': id, ...req.body};
-
-    const index = books.findIndex(book => book.id === id);
-    books.splice(index, 1, updatedBook);
-
-    res.json(updatedBook);
-})
+app.get("/api/books", query.getAllBooks);
+app.get("/api/books/:id", query.getBookById);
+app.post("/api/books", query.addBook);
+app.delete("/api/books/:id", query.deleteBook);
+app.put("/api/books/:id", query.updateBook);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
