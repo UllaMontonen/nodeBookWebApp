@@ -42,6 +42,17 @@ app.delete("/api/books/:id", (req, res) => {
     res.status(204).end();
 })
 
+// Edit a book
+app.put("/api/books/:id", (req, res) => {
+    const id = req.params.id;
+    const updatedBook = {'id': id, ...req.body};
+
+    const index = books.findIndex(book => book.id === id);
+    books.splice(index, 1, updatedBook);
+
+    res.json(updatedBook);
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}.`);
 });
