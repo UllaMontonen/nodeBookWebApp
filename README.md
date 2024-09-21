@@ -48,9 +48,12 @@ Authentication has been implemented only for API endpoints, not for the user int
 ## Testing
 The project uses Mocha, Chai, and Chai HTTP libraries for testing. You can run the tests with the following command: `npm test`.
 
+To avoid emptying the production database during testing, create a separate database specifically for tests, such as test_book. Ensure you also create a user table within this test database. This way, your tests can run without affecting the real data.
+
 ### Created Tests
-- Add a new book: Tests the API's ability to add a book to the database.
-- Get books: Tests the API's functionality to retrieve the list of books.
+- **Login**: Verifies that the login functionality works correctly by authenticating a user and returning a valid JSON Web Token (JWT).
+- **Add a New Book**: Ensures that the API can successfully add a new book to the database, including verifying that the request contains valid data and that the book is stored correctly.
+- **Get Books**: Tests the API's ability to retrieve the list of books from the database, ensuring that all books are fetched as expected and returned in the correct format.
 
 ## Installation iInstructions
 1. **Download Node.js:** Install Node.js if you haven't already done so.
