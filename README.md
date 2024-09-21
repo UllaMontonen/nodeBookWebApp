@@ -3,12 +3,20 @@ This project was created using the knowledge gained from the Metropolia NodeJS c
 
 ## Operating environment
 - Node.js 22.8.0
-- PostgeSQL 12
 
 ## Dependencies
 - Express 4.21
 - PostgreSQL 8.13.0
 - Dotenv 16.4.5
+- Pug 3.0.3
+- Method-override  3.0.0
+
+## User Interface
+The user interface is built using **Pug** as the templating engine and **Bootstrap** for styling. Pug allows for clean and readable HTML generation, while Bootstrap provides responsive design elements for a better user experience.
+
+![book list view](/pictures/booklist.png)
+![add book view](/pictures/addBook.png)
+
 
 ## Database
 ### Books:
